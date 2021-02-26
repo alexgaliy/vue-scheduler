@@ -27,8 +27,7 @@
                   <order-cell
                     v-if="specialist.id === order.specialistID && time === order.orderTime && date === order.orderDate && selectedClinic.id === order.clinicID"
                     :order="order"
-                    @click="if (order.isOrdered) getOrderData(order);"
-                  />
+                    @click.stop="if (order.isOrdered) getOrderData(order);" />
                 </template>
               </div>
             </template>
@@ -108,6 +107,7 @@ export default {
     getCellData(time, specialist) {
       this.selectedTime = time;
       this.selectedSpecialist = specialist;
+      this.clickedOrder = "";
       this.time = this.date + ' ' + time;
       // console.log(this.date)
       // this.$store.dispatch("ADD_FORM_VALUES", {
@@ -267,6 +267,12 @@ body {
   min-height: auto;
   z-index: 1000;
   background-color: cyan;
+  transition-duration: .2s;
+}
+
+.app-table-grid__item-body .cell:hover {
+  transition-duration: .2s;
+  box-shadow: 0px 0px 9px -3px #000;
 }
 
 .pet-owner,

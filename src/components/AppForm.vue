@@ -26,7 +26,6 @@
         maxlength="14"
         v-phone
         pattern="[+7|8]{1}[(][0-9]{3}[)][0-9]{3}-[0-9]{4}"
-        required
       />
 
     <label for="serviceCategory">Категория</label>
@@ -47,7 +46,6 @@
           {{ service.name }}
         </option>
       </select>
-      {{selectedService}}
     </template>
     <!-- <select
       name="serviceCategory"
@@ -89,16 +87,18 @@
     <input class="form-control" type="text" name="noteOrder" v-model="formValues.noteOrder" />
     <input class="form-control" hidden type="text" v-model="formValues.clinicID" />
     
-
-    <input class="btn btn-success mb-2" type="submit" value="Записать" />
+  <template v-if="orderData.isOrdered">
+      <input class="btn btn-success mb-2" type="submit" value="Редактировать" />
+  </template>
+  <template v-if="!orderData.isOrdered">
+      <input class="btn btn-success mb-2" type="submit" value="Записать" />
+  </template>
     <div class="copyPaste">
       <button class="btn btn-primary" @click.prevent="copyForm">Копировать</button>
       <button class="btn btn-secondary" @click.prevent="pasteForm">Вставить</button>
       <button class="btn btn-danger" @click.prevent="pasteOrderInfo">Очистить форму</button>
     </div>
   </form>
-  <!-- <p v-if="selectedCategory">{{ selectedCategory }} {{ selectedService }}</p> -->
-  <!-- {{ checkIsCategoryValid() }} -->
 </template>
 
 <script>
@@ -106,9 +106,6 @@
 export default {
   name: "AppForm",
   props: ["time", "specialist", "orderData", "date"],
-  components: {
-    //  MDBInput
-  },
   data() {
     return {
       copiedData: "",
@@ -146,7 +143,7 @@ export default {
     this.formValues.specialistName = this.specialist.name,
     this.formValues.category = this.selectedCategory;
     this.formValues.service = this.selectedService;
-    this.formValues.clinicID = this.chosenClinic.id
+    this.formValues.clinicID = this.chosenClinic.id;
     // console.log(this.chosenClinic.id)
     // if (this.selectedCategory.services) {
     //   this.formValues.service = this.selectedService;
@@ -154,11 +151,20 @@ export default {
     //   this.formValues.service = null;
     // }
     // console.log(this.formValues);
-    
+    if(this.orderData) {
+    this.formValues.owner = this.orderData.owner;
+    // this.formValues.orderTime = this.orderData.time;
+    // this.formValues.orderDate = this.orderData.date;
+    this.formValues.specialistID = this.orderData.specialistID,
+    this.formValues.specialistName = this.orderData.specialistName
+    // this.formValues.category = this.orderData.selectedCategory;
+    // this.formValues.service = this.orderData.selectedService;
+    // this.formValues.clinicID = this.orderData.chosenClinic.id;
+    }
   },
   methods: {
     pasteOrderInfo() {
-      this.formValues.owner = this.orderData.owner;
+      // this.formValues.owner = this.orderData.owner;
     },
     checkIsCategoryValid() {
       if (this.selectedCategory != null && this.selectedCategory.services != null) {

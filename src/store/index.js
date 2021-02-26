@@ -373,6 +373,7 @@ export default Vuex.createStore({
       order.colorCell = payload.category.color;
       order.clinicID = payload.clinicID;
       order.isOrdered = true;
+      // order.colorCell = 'orange';
       state.orders.push(order)
     },
     SET_FORM_VALUES(state, payload) {
