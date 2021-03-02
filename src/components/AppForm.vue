@@ -7,7 +7,16 @@
     <input class="form-control" type="text" disabled name="specialist" :value="specialist.name" />
     <label for="pet">Вид животного</label>
     <input class="form-control" type="text" name="petType" v-model="formValues.petType" />
-
+ <select name="service" class="form-control" v-model="formValues.petType">
+        <option value="" disabled hidden>Выберите вид животного</option>
+        <option
+          v-for="service in selectedCategory.services"
+          :key="service.id"
+          :value="service"
+        >
+          {{ service.name }}
+        </option>
+      </select>
     <label for="time">Время начала</label>
     <input class="form-control" type="text" disabled name="time" :value="time" />
     <input class="form-control" type="text" disabled name="date" :value="date" />
@@ -153,6 +162,8 @@ export default {
     // console.log(this.formValues);
     if(this.orderData) {
     this.formValues.owner = this.orderData.owner;
+    this.formValues.petName = this.orderData.petName;
+
     // this.formValues.orderTime = this.orderData.time;
     // this.formValues.orderDate = this.orderData.date;
     this.formValues.specialistID = this.orderData.specialistID,

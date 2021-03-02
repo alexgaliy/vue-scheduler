@@ -329,7 +329,36 @@ export default Vuex.createStore({
           color: 'tomato'
         }
       ],
-
+      animalTypes: [
+        {
+          id:1,
+          name: "Кошка"
+        },
+        {
+          id:2,
+          name: "Собака"
+        },
+        {
+          id:3,
+          name: "Попугай"
+        },
+        {
+          id:4,
+          name: "Крыса"
+        },
+        {
+          id:44,
+          name: "Хорек"
+        },
+        {
+          id:5,
+          name: "Змея"
+        },
+        {
+          id:6,
+          name: "Другое"
+        }
+      ]
     }
   },
   getters: {
