@@ -94,6 +94,7 @@ export default Vuex.createStore({
           orderID: 1,
           specialistID: 1,
           clinicID: 1,
+          category:"asd",
           specialistName: 'Иванов Геннадий Иванович',
           owner: 'Геннадий Иванович Попов',
           petType: 'Хомяк',
@@ -101,6 +102,7 @@ export default Vuex.createStore({
           orderDate: '08.02.2021',
           ownerPhone: 98098082309,
           serviceName: 'Первичный осмотр',
+          serviceInfo: {duration: 120},
           petName: 'хома',
           petAge: '4',
           ownerAddress: 'Тихорецк',
@@ -113,6 +115,7 @@ export default Vuex.createStore({
           orderID: 1,
           specialistID: 5,
           clinicID: 1,
+          category:"asd",
           specialistName: 'Иванов Геннадий Иванович',
           owner: 'василий иванович ким',
           petType: 'Собака',
@@ -121,6 +124,7 @@ export default Vuex.createStore({
           ownerPhone: 982342309,
           serviceName: 'Стрижка',
           petName: 'Киqweqт',
+          serviceInfo: {duration: 45},
           petAge: '4',
           ownerAddress: 'Геленджик',
           noteOrder: 'текст заметки',
@@ -132,6 +136,7 @@ export default Vuex.createStore({
           orderID: 1,
           specialistID: 4,
           clinicID: 2,
+          category:"asd",
           specialistName: 'Иванов И.И.',
           owner: 'Елена Ивановна',
           petType: 'Кошка',
@@ -140,6 +145,7 @@ export default Vuex.createStore({
           ownerPhone: 98098234282309,
           serviceName: 'Стрижка',
           petName: 'Кweqит',
+          serviceInfo: {duration: 60},
           petAge: '4',
           ownerAddress: 'Кропоткин',
           noteOrder: 'текст заметки',
@@ -158,6 +164,7 @@ export default Vuex.createStore({
           orderDate: '08.02.2021',
           ownerPhone: 2342309,
           serviceName: 'Стрижка',
+          serviceInfo: {duration: 30},
           petName: 'Кит',
           petAge: '4',
           ownerAddress: 'Краснодар',
@@ -176,6 +183,7 @@ export default Vuex.createStore({
           orderTime: '14:00',
           orderDate: '09.02.2021',
           ownerPhone: 2342309,
+          serviceInfo: {duration: 60},
           serviceName: 'Стрижка',
           petName: 'Кит',
           petAge: '4',
@@ -236,17 +244,17 @@ export default Vuex.createStore({
             {
               id: 2,
               name: 'Первичный прием',
-              duration: 30
+              duration: 45
             },
             {
               id: 3,
               name: 'Эвтаназия',
-              duration: 30
+              duration: 60
             },
             {
               id: 4,
               name: 'Повторный прием',
-              duration: 30
+              duration: 120
             }
           ]
         },
@@ -383,6 +391,9 @@ export default Vuex.createStore({
     },
     GET_CHOSEN_CLINIC: state => {
       return state.chosenClinic
+    },
+    GET_ANIMAL_TYPES: state => {
+      return state.animalTypes
     }
   },
   mutations: {

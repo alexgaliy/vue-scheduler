@@ -1,11 +1,12 @@
 <template>
-  <div class="cell" :style="{ backgroundColor: order.colorCell }">
+  <div class="cell" :style="{ backgroundColor: order.colorCell, height: cellHeight }">
     <p class="pet-owner">{{ order.owner }}</p>
     <div class="pet">
       <p class="manipulation">{{ order.serviceName }}</p>
       <p class="pet-type">{{ order.petType }}</p>
     </div>
   </div>
+
 </template>
 
 <script>
@@ -14,6 +15,11 @@ export default {
   props: ["order"],
   methods: {
    
+  },
+  data() {
+    return {
+      cellHeight: this.order.serviceInfo.duration + "px"
+    }
   },
 };
 </script>

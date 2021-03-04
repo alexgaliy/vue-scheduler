@@ -6,15 +6,15 @@
     <label for="owner">Специалист</label>
     <input class="form-control" type="text" disabled name="specialist" :value="specialist.name" />
     <label for="pet">Вид животного</label>
-    <input class="form-control" type="text" name="petType" v-model="formValues.petType" />
- <select name="service" class="form-control" v-model="formValues.petType">
+    <!-- <input class="form-control" type="text" name="petType" v-model="formValues.petType" /> -->
+ <select name="petType" class="form-control" v-model="formValues.petType">
         <option value="" disabled hidden>Выберите вид животного</option>
         <option
-          v-for="service in selectedCategory.services"
-          :key="service.id"
-          :value="service"
+          v-for="animalType in animalTypes"
+          :key="animalType.id"
+          :value="animalType"
         >
-          {{ service.name }}
+          {{ animalType.name }}
         </option>
       </select>
     <label for="time">Время начала</label>
@@ -121,16 +121,16 @@ export default {
       selectedCategory: null,
       selectedService: "",
       formValues: {
-        owner: this.owner,
+        owner: "",
         orderTime: "",
         specialistName: "",
-        ownerPhone: this.ownerPhone,
-        ownerAddress: this.ownerAddress,
-        petType: this.petType,
-        petName: this.petName,
-        orderDate: this.orderDate,
-        petAge: this.petAge,
-        noteOrder: this.noteOrder,
+        ownerPhone: "",
+        ownerAddress: "",
+        petType: "",
+        petName: "",
+        orderDate: "",
+        petAge: "",
+        noteOrder: "",
         specialistID: "",
         category: "",
         service: "",
@@ -166,9 +166,10 @@ export default {
 
     // this.formValues.orderTime = this.orderData.time;
     // this.formValues.orderDate = this.orderData.date;
-    this.formValues.specialistID = this.orderData.specialistID,
-    this.formValues.specialistName = this.orderData.specialistName
-    // this.formValues.category = this.orderData.selectedCategory;
+    this.formValues.specialistID = this.orderData.specialistID;
+    this.formValues.specialistName = this.orderData.specialistName;
+    this.formValues.category = this.orderData.serviceCategoryInfo;
+    console.log(this.formValues.category)
     // this.formValues.service = this.orderData.selectedService;
     // this.formValues.clinicID = this.orderData.chosenClinic.id;
     }
@@ -254,6 +255,9 @@ export default {
     },
     chosenClinic() {
       return this.$store.getters.GET_CHOSEN_CLINIC;
+    },
+    animalTypes() {
+      return this.$store.getters.GET_ANIMAL_TYPES;
     },
     // serviceCategoryInfo: {
     //   get() {
