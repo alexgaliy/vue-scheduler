@@ -1,5 +1,5 @@
 <template>
-  <form class="form" @submit.prevent="addOrder">
+  <form class="form" @submit.prevent="!orderData.isOrdered ? addOrder() : ''">
 
     <label for="owner">ФИО владельца</label>
     <input class="form-control" type="text" name="owner" v-model="formValues.owner" />
@@ -95,13 +95,16 @@
     <label for="note">Примечание</label>
     <input class="form-control" type="text" name="noteOrder" v-model="formValues.noteOrder" />
     <input class="form-control" hidden type="text" v-model="formValues.clinicID" />
+
+  <button class="btn btn-success mb-2" type="submit">{{ orderData.isOrdered ? "Редактировать" : "Записать" }}</button>
     
-  <template v-if="orderData.isOrdered">
-      <input class="btn btn-success mb-2" type="submit" value="Редактировать" />
+  <!-- <template v-if="orderData.isOrdered">
+      <input class="btn btn-success mb-2" type="submit" value="Редактировать" >
   </template>
   <template v-if="!orderData.isOrdered">
       <input class="btn btn-success mb-2" type="submit" value="Записать" />
-  </template>
+  </template> -->
+  
     <div class="copyPaste">
       <button class="btn btn-primary" @click.prevent="copyForm">Копировать</button>
       <button class="btn btn-secondary" @click.prevent="pasteForm">Вставить</button>

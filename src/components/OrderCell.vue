@@ -18,7 +18,7 @@ export default {
   },
   data() {
     return {
-      cellHeight: this.order.serviceInfo.duration + "px"
+      cellHeight: this.order.serviceInfo.duration - 1 + "px"
     }
   },
 };
