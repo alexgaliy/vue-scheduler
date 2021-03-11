@@ -4,7 +4,6 @@
   <div class="date">
     Выбраная дата: <vue-flat-pickr v-model="date" :config="config" placeholder="Выберите дату" />
   </div>
-
     <div class="table-wrapper">
       <render-table-head />
 
@@ -77,12 +76,15 @@ export default {
   },
   data() {
     return {
-      showShowmodal: true,
+      // showShowmodal: true,
       clickedOrder: "",
+      startTime: "8:00",
+      endTime: "20:00",
       indexCell: null,
       selectedTime: "",
       selectedSpecialist: "",
-      date: new Date().toLocaleDateString(),
+      // date: new Date().toLocaleDateString(),
+      date: "08.02.2021",
         // Get more form https://flatpickr.js.org/options/
         config: {
           wrap: false, // set wrap to true only when using 'input-group'
@@ -101,7 +103,6 @@ export default {
     
   },
   updated() {
-
   },
   methods: {
     getCellData(time, specialist) {
@@ -115,6 +116,7 @@ export default {
       //   specialistName: specialist.name,
       //   orderTime: time,
       // });
+    this.countAvailableTimeForOrder()
     },
     getOrderData(order) {
       this.clickedOrder = order;
@@ -125,7 +127,16 @@ export default {
     highlightRow(index) {
       this.indexCell = index;
     },
-
+    countAvailableTimeForOrder() {
+      let allOrders = this.orders;
+      let selectedOrders = allOrders.filter((order) => order.specialistID === this.selectedSpecialist.id && order.clinicID === this.selectedClinic.id && order.orderDate === this.date);
+      selectedOrders.sort((prev, next) => {
+        if (prev.orderTime > next.orderTime) return 1;
+        if (prev.orderTime < next.orderTime) return -1;
+        return 0;
+      });
+      console.log(selectedOrders)
+    },
     // ordered(order) {
     //   console.log(order);
     //   // if (order.isOrdered) {
@@ -136,8 +147,8 @@ export default {
     // },
     moment,
     renderTimings() {
-      let startTime = moment("8:00", "H:i");
-      let endTime = moment("20:00", "H:i");
+      let startTime = moment(this.startTime, "H:i");
+      let endTime = moment(this.endTime, "H:i");
       let current = new moment(startTime);
       let times = [];
       while (current.isBefore(endTime)) {
@@ -146,6 +157,12 @@ export default {
       }
       this.$store.commit("SET_TIMINGS", times);
     },
+
+    // countFreeTime() {
+    //   console.log(this.orders)
+    //   let manipulationEnd = 12;
+    // },
+    
     // getColorCell() {},
   },
   computed: {

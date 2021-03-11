@@ -13,12 +13,9 @@
 export default {
   name: "OrderCell",
   props: ["order"],
-  methods: {
-   
-  },
   data() {
     return {
-      cellHeight: this.order.serviceInfo.duration - 1 + "px"
+      cellHeight: Math.ceil(this.order.serviceInfo.duration / 15) * 15 - 1 + "px"
     }
   },
 };

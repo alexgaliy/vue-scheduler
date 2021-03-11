@@ -51,6 +51,7 @@
           v-for="service in selectedCategory.services"
           :key="service.id"
           :value="service"
+          :disabled="copiedData.length === 0"
         >
           {{ service.name }}
         </option>
@@ -95,7 +96,7 @@
     <label for="note">Примечание</label>
     <input class="form-control" type="text" name="noteOrder" v-model="formValues.noteOrder" />
     <input class="form-control" hidden type="text" v-model="formValues.clinicID" />
-
+<div class="alert alert-danger" role="alert">тестовое сообщение</div>
   <button class="btn btn-success mb-2" type="submit">{{ orderData.isOrdered ? "Редактировать" : "Записать" }}</button>
     
   <!-- <template v-if="orderData.isOrdered">
@@ -172,12 +173,13 @@ export default {
     this.formValues.specialistID = this.orderData.specialistID;
     this.formValues.specialistName = this.orderData.specialistName;
     this.formValues.category = this.orderData.serviceCategoryInfo;
-    console.log(this.formValues.category)
+    // console.log(this.formValues.category)
     // this.formValues.service = this.orderData.selectedService;
     // this.formValues.clinicID = this.orderData.chosenClinic.id;
     }
   },
   methods: {
+    
     pasteOrderInfo() {
       // this.formValues.owner = this.orderData.owner;
     },
@@ -187,10 +189,10 @@ export default {
       }
     },
     clearChosenService() {
-      console.log(this.selectedService)
+      // console.log(this.selectedService)
 
       this.selectedService = "";
-            console.log(this.selectedService)
+            // console.log(this.selectedService)
 
     },
     // resetServiceSelect() {
