@@ -78,7 +78,7 @@ export default {
     return {
       // showShowmodal: true,
       clickedOrder: "",
-      startTime: "8:00",
+      startTime: "08:00",
       endTime: "20:00",
       indexCell: null,
       selectedTime: "",
@@ -129,13 +129,17 @@ export default {
     },
     countAvailableTimeForOrder() {
       let allOrders = this.orders;
-      let selectedOrders = allOrders.filter((order) => order.specialistID === this.selectedSpecialist.id && order.clinicID === this.selectedClinic.id && order.orderDate === this.date);
+      let selectedOrders = allOrders.filter((order) => order.specialistID === this.selectedSpecialist.id && order.clinicID === this.selectedClinic.id && order.orderDate === this.date && this.selectedTime < order.orderTime);
       selectedOrders.sort((prev, next) => {
         if (prev.orderTime > next.orderTime) return 1;
         if (prev.orderTime < next.orderTime) return -1;
         return 0;
-      });
-      console.log(selectedOrders)
+      }
+      );
+      let closestOrder = moment(selectedOrders[0].orderTime, "H:i").add(17, "m").format("HH:mm");
+
+
+      console.log(closestOrder)
     },
     // ordered(order) {
     //   console.log(order);
@@ -148,11 +152,12 @@ export default {
     moment,
     renderTimings() {
       let startTime = moment(this.startTime, "H:i");
+      console.log(startTime)
       let endTime = moment(this.endTime, "H:i");
       let current = new moment(startTime);
       let times = [];
       while (current.isBefore(endTime)) {
-        times.push(current.format("H:mm"));
+        times.push(current.format("HH:mm"));
         current.add(15, "m");
       }
       this.$store.commit("SET_TIMINGS", times);

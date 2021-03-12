@@ -51,7 +51,6 @@
           v-for="service in selectedCategory.services"
           :key="service.id"
           :value="service"
-          :disabled="copiedData.length === 0"
         >
           {{ service.name }}
         </option>
