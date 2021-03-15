@@ -129,17 +129,28 @@ export default {
     },
     countAvailableTimeForOrder() {
       let allOrders = this.orders;
-      let selectedOrders = allOrders.filter((order) => order.specialistID === this.selectedSpecialist.id && order.clinicID === this.selectedClinic.id && order.orderDate === this.date && this.selectedTime < order.orderTime);
-      selectedOrders.sort((prev, next) => {
+      let filteredOrders = allOrders.filter((order) => order.specialistID === this.selectedSpecialist.id && order.clinicID === this.selectedClinic.id && order.orderDate === this.date && this.selectedTime < order.orderTime);
+      filteredOrders.sort((prev, next) => {
         if (prev.orderTime > next.orderTime) return 1;
         if (prev.orderTime < next.orderTime) return -1;
         return 0;
       }
       );
-      let closestOrder = moment(selectedOrders[0].orderTime, "H:i").add(17, "m").format("HH:mm");
-
-
-      console.log(closestOrder)
+      let closestOrderTime;
+      let manipulationEnding = moment(this.selectedTime, "H:i").add(this.selectedService.duration, "m").format("HH:mm");
+        if (filteredOrders.length > 0) {
+          closestOrderTime = filteredOrders[0].orderTime;
+      // console.log(closestOrderTime)
+        } else {
+          closestOrderTime = this.endTime;
+        }
+        // console.log(manipulationEnding)
+      if(manipulationEnding < closestOrderTime) {
+            // console.log('siska')
+      } else {
+        // console.log('not siska')
+      }
+     console.log(closestOrderTime)
     },
     // ordered(order) {
     //   console.log(order);
@@ -152,7 +163,6 @@ export default {
     moment,
     renderTimings() {
       let startTime = moment(this.startTime, "H:i");
-      console.log(startTime)
       let endTime = moment(this.endTime, "H:i");
       let current = new moment(startTime);
       let times = [];
@@ -183,6 +193,9 @@ export default {
     selectedClinic() {
       return this.$store.getters.GET_CHOSEN_CLINIC;
     },
+    selectedService() { 
+      return this.$store.getters.GET_SELECTED_SERVICE;
+      },
     //     hoveredRow(order) {
 
     //      if (

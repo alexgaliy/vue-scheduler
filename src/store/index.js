@@ -320,6 +320,7 @@ export default Vuex.createStore({
       // timings: ['8:00', '9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '14:01', '14:02', '14:03', '14:04', '14:05', '14:06', '14:07', '14:08'],
       timings: [],
       chosenClinic: "",
+      selectedService: "",
       serviceCategories: [{
           id: 1,
           name: 'Амбулаторный прием',
@@ -376,6 +377,12 @@ export default Vuex.createStore({
         {
           id: 3,
           name: 'Забор материала для диагностических исследований',
+          services: [{
+            id: 9,
+            name: 'Забор материала для диагностических исследований',
+            duration: 15
+          }
+        ],
           color: 'orange'
         },
         {
@@ -397,6 +404,12 @@ export default Vuex.createStore({
         {
           id: 5,
           name: 'Оформление ВСД',
+          services: [{
+            id: 9,
+            name: 'Оформление ВСД',
+            duration: 15
+          }
+        ],
           color: 'lemonchiffon'
         },
       ],
@@ -482,6 +495,9 @@ export default Vuex.createStore({
     },
     GET_ANIMAL_TYPES: state => {
       return state.animalTypes
+    },
+    GET_SELECTED_SERVICE: state => {
+      return state.selectedService
     }
   },
   mutations: {
@@ -560,6 +576,10 @@ export default Vuex.createStore({
     CHOOSE_CLINIC(state, payload) {
       state.chosenClinic = payload;
     }
+    ,
+    SET_SELECTED_SERVICE(state, payload) {
+      state.selectedService = payload;
+    }
   },
   actions: {
     ADD_ORDER(context, payload) {
@@ -568,6 +588,10 @@ export default Vuex.createStore({
     ADD_FORM_VALUES(context, payload) {
       context.commit('SET_FORM_VALUES', payload);
     },
+    ADD_SELECTED_SERVICE(context, payload) {
+      context.commit('SET_SELECTED_SERVICE', payload);
+    },
+
     // ADD_TIMINGS(context, payload) {
     //   context.commit('SET_TIMINGS', payload);
     // }
